@@ -1,0 +1,39 @@
+<div class="container border my-5">
+  <form [formGroup]="pseudoSocketFormGroup">
+    <div class="row border p-3">
+      <div class="col">
+        <label for="">Timer, ms</label>
+        <input type="text" formControlName="timer" class="form-control" />
+      </div>
+      <div class="col">
+        <label for="">Array Size</label>
+        <input type="text" formControlName="arraySize"  class="form-control" />
+      </div>
+      <div class="col">
+        <label for="">Additional array ids</label>
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row m-3 p-4">
+    <div class="col">Id</div>
+    <div class="col">Int</div>
+    <div class="col">Float</div>
+    <div class="col">Color</div>
+    <div class="col">Child</div>
+  </div>
+
+  <div *ngFor="let item of frequencyData;" class="row border d-flex align-items-center m-3 p-4">
+    <div class="col">{{item.id}}</div>
+    <div class="col">{{item.int}}</div>
+    <div class="col">{{item.float}}</div>
+    <div class="col text-center">
+        <span  [ngClass]="{'red': item.color === 'red', 'blue': item.color === 'blue',  'green' : item.color === 'green' }">{{item.color}}</span>
+      </div>
+    <div class="col p-3 text-center border">
+      <app-child [childData]="item.child"></app-child>
+    </div>
+  </div>
+</div>

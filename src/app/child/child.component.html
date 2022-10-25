@@ -1,0 +1,14 @@
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{childData.id}}</td>
+      <td> <span [ngClass]="{'red': childData.color === 'red', 'blue': childData.color === 'blue',  'green' : childData.color }">{{childData.color}}</span></td>
+    </tr>
+  </tbody>
+</table>
