@@ -1,57 +1,80 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IFrequencyData } from './utils/IFrequencyData';
+import { Subscription } from 'rxjs';
+import { PseudoSocketService } from './Services/pseudoSocket.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit,OnDestroy {
-
+export class AppComponent implements OnInit, OnDestroy {
    clearInterval:any;
-   frequencyData: IFrequencyData[] = [];
+  //  frequencyData: IFrequencyData[] = [];
+   frequencyData: any;
+   pseudoSocketFormValue:{
+    timer: 0
+    size: 0
+   }
+   subscription: Subscription;
+
 
     /* Forms */
-    pseudoSocketFormGroup!: FormGroup;
+    pseudoSocketFormGroup: FormGroup;
+    interval: any;
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder,
+    private pseudoSocketService: PseudoSocketService){}
 
 
   ngOnInit(): void {
     this.initForm();
+    this.pseudoSocket();
   }
 
   initForm(){
     this.pseudoSocketFormGroup = this.formBuilder.group({
       timer: [null],
-      arraySize:[null]
+      sizeOfData:[null]
     })
-
-    this.pseudoSocketFormControls['timer'].valueChanges.subscribe((timer) =>{
-      this.pseudoSocketFormControls['timer'].setValue(timer)
-    })
-
-   this.pseudoSocketFormControls['arraySize'].valueChanges.subscribe((size) =>{
-    let timervalue = this.pseudoSocketFormControls['timer'].value
-    this.clearInterval = setInterval(() => {
-      this.initWorker(size);
-    }, timervalue);
-   })
+    this.handlChange();
   }
 
-  get pseudoSocketFormControls(){
-    return this.pseudoSocketFormGroup.controls;
+  handlChange() {
+    this.pseudoSocketFormGroup.valueChanges.subscribe((value)=>{
+       this.pseudoSocketFormValue = {
+        timer: value.timer,
+        size: value.sizeOfData
+      }
+      this.pseudoSocketService.setPseudoSocketFormValue.next(this.pseudoSocketFormValue);
+     })
   }
+
+
+  pseudoSocket(){
+    this.subscription =  this.pseudoSocketService.getPseudoSocketFormValue().subscribe(value=>{
+      if(value.size && value.timer){
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+          this.initWorker(value.size)
+        },value.timer);
+      }
+    })
+  }
+
 
   // init Worker
   initWorker(sizeOfarray: number){
+
     if (typeof Worker !== 'undefined') {
       // Create a new
       const worker = new Worker(new URL('./app.worker', import.meta.url));
       worker.onmessage = ({ data }) => {
           console.log(`page got message: ${JSON.stringify(data)}`);
           this.frequencyData = data.splice(-10)
+          //  this.frequencyData = new FrequencyData({ frequencyDataResponse: data.splice(-10) })
+
       };
       worker.postMessage(sizeOfarray);
     } else {
@@ -63,6 +86,6 @@ export class AppComponent implements OnInit,OnDestroy {
 
 
   ngOnDestroy(): void {
-    clearInterval(this.clearInterval);
+    this.subscription.unsubscribe();
   }
 }
