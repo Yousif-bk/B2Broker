@@ -13,18 +13,16 @@ import { plainToClass } from 'class-transformer';
 })
 export class AppComponent implements OnInit, OnDestroy {
    clearInterval:any;
-  //  frequencyData: IFrequencyData[] = [];
    frequencyData: any;
-   pseudoSocketFormValue:{
-    timer: 0
-    size: 0
-   }
+   interval: any;
    subscription: Subscription;
-
-
     /* Forms */
-    pseudoSocketFormGroup: FormGroup;
-    interval: any;
+   pseudoSocketFormGroup: FormGroup;
+
+    pseudoSocketFormValue:{
+      timer: 0
+      size: 0
+     }
 
   constructor(private formBuilder: FormBuilder,
     private pseudoSocketService: PseudoSocketService){}
