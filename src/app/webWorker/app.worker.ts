@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 
-import { pseudoSocket } from "./utils/pseudoSocket";
+import { pseudoSocket } from "../utils/pseudoSocket";
+
 
 
 

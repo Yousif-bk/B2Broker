@@ -7,10 +7,7 @@ import { IChild } from '../utils/IFrequencyData';
   styleUrls: ['./child.component.scss']
 })
 export class ChildComponent implements OnInit {
-  @Input() childData: IChild = {
-    id: '',
-    color: ''
-  }
+  @Input() childData: IChild;
   constructor() { }
 
   ngOnInit(): void {

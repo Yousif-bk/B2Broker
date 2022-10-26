@@ -3,7 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PseudoSocketService } from './Services/pseudoSocket.service';
-
+import { FrequencyData } from './utils/FrequencyData';
+import { IFrequencyData } from './utils/IFrequencyData';
+import { plainToClass } from 'class-transformer';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -65,18 +67,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   // init Worker
-  initWorker(sizeOfarray: number){
+  initWorker(sizeOfdata: number){
 
     if (typeof Worker !== 'undefined') {
       // Create a new
-      const worker = new Worker(new URL('./app.worker', import.meta.url));
+      const worker = new Worker(new URL('./webWorker/app.worker', import.meta.url));
       worker.onmessage = ({ data }) => {
-          console.log(`page got message: ${JSON.stringify(data)}`);
-          this.frequencyData = data.splice(-10)
-          //  this.frequencyData = new FrequencyData({ frequencyDataResponse: data.splice(-10) })
-
+          console.log(`page got message: ${JSON.stringify(data)}`)
+           this.frequencyData = plainToClass(FrequencyData, data.splice(-10))
       };
-      worker.postMessage(sizeOfarray);
+      worker.postMessage(sizeOfdata);
     } else {
       // Web workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.
