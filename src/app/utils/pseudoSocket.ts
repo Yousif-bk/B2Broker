@@ -1,4 +1,5 @@
 
+
 export class PseudoSocket {
 
 
@@ -11,6 +12,7 @@ export class PseudoSocket {
 
 // Avi Colors
  colors = { red: 'Red', green: 'Green', blue: 'Blue' };
+
 
  pickRandomColor(obj: any) {
   let result;

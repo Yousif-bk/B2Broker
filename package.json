@@ -1,5 +1,5 @@
 {
-  "name": "worker-basics",
+  "name": "b2broker",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

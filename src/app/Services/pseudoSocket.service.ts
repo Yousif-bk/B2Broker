@@ -16,7 +16,7 @@ export class PseudoSocketService {
     this.getPseudoSocketFormValue().subscribe((value) => {
       const idsToStr = value.ids.toString();
       const idsToArray = idsToStr.split(",");
-      return console.log("idsToArray",  idsToArray)
+      return idsToArray
     })
   }
 }
