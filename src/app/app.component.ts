@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PseudoSocketService } from './Services/pseudoSocket.service';
 import { FrequencyData } from './utils/FrequencyData';
-import { IFrequencyData } from './utils/IFrequencyData';
 import { plainToClass } from 'class-transformer';
 @Component({
   selector: 'app-root',
