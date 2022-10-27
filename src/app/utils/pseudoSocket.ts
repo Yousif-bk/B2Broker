@@ -1,26 +1,30 @@
-// Random fload number
-const floadRandpn = (Math.random() * (100.12 - 0.02) + 0.02).toFixed(18);
+
+export class PseudoSocket {
+
+
+  // Random fload number
+ floadRandpn = (Math.random() * (100.12 - 0.02) + 0.02).toFixed(18);
 
 
 // Key from data array object
-const keyOfData = ['id', 'int'];
+ keyOfData = ['id', 'int'];
 
 // Avi Colors
-const colors = { red: 'Red', green: 'Green', blue: 'Blue' };
+ colors = { red: 'Red', green: 'Green', blue: 'Blue' };
 
-function pickRandomColor(obj: any) {
+ pickRandomColor(obj: any) {
   let result;
   let count = 0;
   for (let prop in obj) if (Math.random() < 1 / ++count) result = prop;
   return result;
 }
 
-function pickRandomChild(items:any){
+ pickRandomChild(items:any){
 return items[Math.floor(Math.random()*items.length)];
 }
 
 
-function amountOfData(num:number) {
+ amountOfData(num:number) {
   let data = [];
   let frequencyDataArray = [];
 
@@ -33,21 +37,21 @@ function amountOfData(num:number) {
   }
 
   // add array key to orinal array
-  frequencyDataArray.unshift(keyOfData);
+  frequencyDataArray.unshift(this.keyOfData);
 
   // return array of array
   return frequencyDataArray;
 }
 
 
-export function pseudoSocket(num:number){
+   pseudoSocket(num:number){
   let frequencyDataObj:any = {};
   let frequencyDataOfObjlChild:any = {};
   let keys:any = [];
   let finalfrequencyData = [];
   let finalfrequencyDataChild:any = [];
 
-  let frequencyDataArray = amountOfData(num);
+  let frequencyDataArray = this.amountOfData(num);
 
   keys = frequencyDataArray.shift();
 
@@ -57,18 +61,18 @@ export function pseudoSocket(num:number){
     frequencyDataOfObjlChild = {};
 
     // Main Array Of Obj
-    for (let k = 0; k < keyOfData.length; k++) {
+    for (let k = 0; k < this.keyOfData.length; k++) {
       frequencyDataObj[keys[k]] = frequencyDataArray[i][k];
     }
 
     // Child Array Of Obj
-    for (let k = 0; k < keyOfData.length; k++) {
-      frequencyDataOfObjlChild[keyOfData[k]] = frequencyDataArray[i][k];
+    for (let k = 0; k < this.keyOfData.length; k++) {
+      frequencyDataOfObjlChild[this.keyOfData[k]] = frequencyDataArray[i][k];
     }
 
     // add Key to child array of obj
     Object.keys(frequencyDataOfObjlChild).forEach(() =>{
-      frequencyDataOfObjlChild.color = pickRandomColor(colors);
+      frequencyDataOfObjlChild.color = this.pickRandomColor(this.colors);
     })
 
     finalfrequencyDataChild.push(frequencyDataOfObjlChild)
@@ -76,9 +80,9 @@ export function pseudoSocket(num:number){
     // add Key to main array of obj
     Object.keys(frequencyDataObj).forEach(() =>{
       frequencyDataObj.int = frequencyDataObj.int * 25;
-      frequencyDataObj.color = pickRandomColor(colors);
-      frequencyDataObj.child = pickRandomChild(finalfrequencyDataChild);
-      frequencyDataObj.float = +floadRandpn;
+      frequencyDataObj.color = this.pickRandomColor(this.colors);
+      frequencyDataObj.child = this.pickRandomChild(finalfrequencyDataChild);
+      frequencyDataObj.float = +this.floadRandpn;
     })
 
 
@@ -89,3 +93,5 @@ export function pseudoSocket(num:number){
 }
 
 
+
+}

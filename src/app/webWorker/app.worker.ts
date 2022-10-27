@@ -1,12 +1,13 @@
 /// <reference lib="webworker" />
 
-import { pseudoSocket } from "../utils/pseudoSocket";
+import { PseudoSocket } from "../utils/pseudoSocket";
 
 
 
 
 
 addEventListener('message', ({data}) => {
-  const response = pseudoSocket(data);
+  const pseudoSocket = new PseudoSocket()
+  const response = pseudoSocket.pseudoSocket(data);
   postMessage(response);
 });

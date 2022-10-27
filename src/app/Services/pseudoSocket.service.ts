@@ -11,4 +11,12 @@ export class PseudoSocketService {
   getPseudoSocketFormValue(){
     return this.setPseudoSocketFormValue;
   }
+
+  setIds(){
+    this.getPseudoSocketFormValue().subscribe((value) => {
+      const idsToStr = value.ids.toString();
+      const idsToArray = idsToStr.split(",");
+      return console.log("idsToArray",  idsToArray)
+    })
+  }
 }
