@@ -22,70 +22,70 @@ return items[Math.floor(Math.random()*items.length)];
 
 function amountOfData(num:number) {
   let data = [];
-  let arrayOfArray = [];
+  let frequencyDataArray = [];
 
   // Generate number as array
   for (let i = 0; i < num; ++i) data[i] = i * 380 / 5;
 
   // Convert array to nested array
   while (data.length > 0) {
-    arrayOfArray.push(data.splice(0, 2));
+    frequencyDataArray.push(data.splice(0, 2));
   }
 
   // add array key to orinal array
-  arrayOfArray.unshift(keyOfData);
+  frequencyDataArray.unshift(keyOfData);
 
   // return array of array
-  return arrayOfArray;
+  return frequencyDataArray;
 }
 
 
 export function pseudoSocket(num:number){
-  let arrayOfObject:any = {};
-  let arrayOfObjectChild:any = {};
+  let frequencyDataObj:any = {};
+  let frequencyDataOfObjlChild:any = {};
   let keys:any = [];
-  let finalArray = [];
-  let finalArrayChild:any = [];
+  let finalfrequencyData = [];
+  let finalfrequencyDataChild:any = [];
 
-  let arrayOfArray = amountOfData(num);
+  let frequencyDataArray = amountOfData(num);
 
-  keys = arrayOfArray.shift();
+  keys = frequencyDataArray.shift();
 
   // Main Array
-  for (let i = 0; i < arrayOfArray.length; i++) {
-    arrayOfObject = {};
-    arrayOfObjectChild = {};
+  for (let i = 0; i < frequencyDataArray.length; i++) {
+    frequencyDataObj = {};
+    frequencyDataOfObjlChild = {};
 
     // Main Array Of Obj
     for (let k = 0; k < keyOfData.length; k++) {
-      arrayOfObject[keys[k]] = arrayOfArray[i][k];
+      frequencyDataObj[keys[k]] = frequencyDataArray[i][k];
     }
 
     // Child Array Of Obj
     for (let k = 0; k < keyOfData.length; k++) {
-      arrayOfObjectChild[keyOfData[k]] = arrayOfArray[i][k];
+      frequencyDataOfObjlChild[keyOfData[k]] = frequencyDataArray[i][k];
     }
 
     // add Key to child array of obj
-    Object.keys(arrayOfObjectChild).forEach(() =>{
-      arrayOfObjectChild.color = pickRandomColor(colors);
+    Object.keys(frequencyDataOfObjlChild).forEach(() =>{
+      frequencyDataOfObjlChild.color = pickRandomColor(colors);
     })
 
-    finalArrayChild.push(arrayOfObjectChild)
+    finalfrequencyDataChild.push(frequencyDataOfObjlChild)
 
     // add Key to main array of obj
-    Object.keys(arrayOfObject).forEach(() =>{
-      arrayOfObject.int = arrayOfObject.int * 25;
-      arrayOfObject.color = pickRandomColor(colors);
-      arrayOfObject.child = pickRandomChild(finalArrayChild);
-      arrayOfObject.float = +floadRandpn;
+    Object.keys(frequencyDataObj).forEach(() =>{
+      frequencyDataObj.int = frequencyDataObj.int * 25;
+      frequencyDataObj.color = pickRandomColor(colors);
+      frequencyDataObj.child = pickRandomChild(finalfrequencyDataChild);
+      frequencyDataObj.float = +floadRandpn;
     })
 
 
-    finalArray.push(arrayOfObject);
+    finalfrequencyData.push(frequencyDataObj);
   }
 
-  return finalArray
+  return finalfrequencyData
 }
 
 
