@@ -81,7 +81,8 @@ return items[Math.floor(Math.random()*items.length)];
 
     // add Key to main array of obj
     Object.keys(frequencyDataObj).forEach(() =>{
-      frequencyDataObj.int = frequencyDataObj.int * 25;
+      frequencyDataObj.id =  Math.floor(Math.random() * 1000) + 1;
+      frequencyDataObj.int =  Math.floor(Math.random() * 2000) + 1;
       frequencyDataObj.color = this.pickRandomColor(this.colors);
       frequencyDataObj.child = this.pickRandomChild(finalfrequencyDataChild);
       frequencyDataObj.float = +this.floadRandpn;
